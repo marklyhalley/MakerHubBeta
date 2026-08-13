@@ -1,10 +1,27 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Sparkles, ArrowRight, Zap, Palette, Rocket, Puzzle } from "lucide-react";
+import {
+  Sparkles, ArrowRight, Zap, Palette, Rocket, Puzzle,
+  MessageSquareText, Wand2, Star, Quote,
+} from "lucide-react";
 import { useNavigate } from "react-router";
 import { useApp } from "../context/AppContext";
-import { CountUp, Grain, PageGlow, Stars } from "../components/common";
+import { CountUp, PageGlow, Stars, MeshBackdrop, BrowserMockup, SiteMock } from "../components/common";
 import { DarkNav } from "../components/DarkNav";
+
+const STEPS = [
+  { icon: MessageSquareText, title: "Descreva", desc: "Conte em uma frase como é o seu negócio e o que ele precisa." },
+  { icon: Wand2, title: "I.A gera", desc: "Nossa I.A monta o site e a estrutura do ERP em segundos." },
+  { icon: Rocket, title: "Baixe / Publique", desc: "Exporte o código-fonte ou publique com um clique." },
+];
+
+const TESTIMONIALS = [
+  { name: "Marina Costa", role: "Clínica Odontológica", initials: "MC", quote: "Em menos de 5 minutos eu tinha um site e um sistema de agendamento rodando. Parecia mágica." },
+  { name: "Rafael Souza", role: "Loja de Roupas", initials: "RS", quote: "O módulo de estoque veio pronto e já integrado ao site. Economizei semanas de desenvolvimento." },
+  { name: "Juliana Prado", role: "Academia Fit", initials: "JP", quote: "Design profissional sem contratar ninguém. O ERP financeiro sozinho já valeu o investimento." },
+];
+
+const LOGOS = ["Nortel", "Vixen", "Cobalto", "Plúmea", "Orix"];
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -24,19 +41,7 @@ export function HomePage() {
   return (
     <div className="relative flex flex-col overflow-hidden">
       <section className="relative min-h-screen flex flex-col overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1618477388954-7852f32655ec?w=1920&h=1080&fit=crop&auto=format"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-[#1f2937]/60 to-primary/40" />
-          {/* Mesh glow */}
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" />
-          <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-accent/20 blur-3xl" />
-          <Grain opacity={0.05} />
-        </div>
+        <MeshBackdrop />
 
         <DarkNav />
 
@@ -50,7 +55,7 @@ export function HomePage() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium backdrop-blur-sm">
               <Sparkles size={13} className="text-accent" />
-              Criador de sites com I.A
+              Gerador de sites + ERP com I.A
             </span>
           </motion.div>
 
@@ -120,6 +125,43 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Como funciona */}
+      <section className="relative bg-background py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+              Como funciona
+            </span>
+            <h2 className="font-['Poppins',sans-serif] font-bold text-3xl sm:text-4xl text-foreground">
+              Do prompt ao produto pronto em 3 passos
+            </h2>
+          </div>
+
+          <div className="relative grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
+            <div className="hidden sm:block absolute top-8 left-[16.6%] right-[16.6%] h-px bg-gradient-to-r from-primary/40 via-accent/40 to-primary/40" />
+            {STEPS.map((s, i) => (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.12 }}
+                className="relative flex flex-col items-center text-center"
+              >
+                <div className="relative z-10 w-16 h-16 rounded-2xl bg-card border border-border dark:border-white/10 shadow-sm dark:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.7)] flex items-center justify-center mb-5">
+                  <s.icon size={24} className="text-primary" />
+                  <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
+                    {i + 1}
+                  </span>
+                </div>
+                <h3 className="font-['Poppins',sans-serif] font-semibold text-lg text-foreground mb-2">{s.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Bento showcase */}
       <section className="relative bg-background py-24 px-6">
         <PageGlow fixed={false} />
@@ -139,7 +181,7 @@ export function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5 }}
-              className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-3xl border border-border dark:border-white/10 bg-card p-8 flex flex-col justify-between shadow-sm dark:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.7)]"
+              className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-3xl border border-border dark:border-white/10 bg-card p-6 sm:p-8 flex flex-col justify-between shadow-sm dark:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.7)]"
             >
               <div className="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-primary/10 dark:bg-primary/20 blur-3xl" />
               <div className="relative">
@@ -151,10 +193,9 @@ export function HomePage() {
                   Descreva sua empresa em uma frase e nossa I.A monta a estrutura, o conteúdo e o sistema ERP que fazem sentido para o seu setor.
                 </p>
               </div>
-              <div className="relative mt-8 flex items-center gap-2 text-xs font-mono text-muted-foreground bg-muted dark:bg-white/[0.05] rounded-xl px-4 py-3 border border-border dark:border-white/10">
-                <Sparkles size={12} className="text-accent flex-shrink-0" />
-                "clínica odontológica com agendamento online..."
-              </div>
+              <BrowserMockup url="seusite.com.br" compact className="relative mt-8 border border-border dark:border-white/10">
+                <SiteMock compact />
+              </BrowserMockup>
             </motion.div>
 
             <motion.div
@@ -223,6 +264,100 @@ export function HomePage() {
             </motion.div>
           </div>
         </div>
+      </section>
+
+      {/* Prova social */}
+      <section className="relative bg-background py-24 px-6 border-t border-border dark:border-white/5">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+              Prova social
+            </span>
+            <h2 className="font-['Poppins',sans-serif] font-bold text-3xl sm:text-4xl text-foreground">
+              Quem já usa, recomenda
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
+            {TESTIMONIALS.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="relative rounded-3xl border border-border dark:border-white/10 bg-card p-6 shadow-sm dark:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.7)] flex flex-col"
+              >
+                <Quote size={26} className="text-primary/20 mb-3" />
+                <p className="text-sm text-foreground leading-relaxed mb-5 flex-1">"{t.quote}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
+                  <div className="ml-auto flex gap-0.5">
+                    {[...Array(5)].map((_, j) => (
+                      <Star key={j} size={11} className="fill-accent text-accent" />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-center text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-6">Empresas que confiam no MakerHub</p>
+            <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+              {LOGOS.map((l) => (
+                <span
+                  key={l}
+                  className="font-['Poppins',sans-serif] font-bold text-xl text-muted-foreground/50 hover:text-primary/70 transition-colors tracking-tight select-none"
+                >
+                  {l}
+                </span>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA final */}
+      <section className="relative px-6 pb-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden bg-gradient-to-br from-primary via-primary to-[#3d4785] px-8 py-16 sm:py-20 text-center"
+        >
+          <div className="absolute inset-0 [background-image:radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.12)_1px,transparent_0)] [background-size:26px_26px]" />
+          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-accent/30 blur-3xl" />
+          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-white/10 blur-3xl" />
+          <div className="relative">
+            <h2 className="font-['Poppins',sans-serif] font-bold text-3xl sm:text-5xl text-white mb-4 max-w-2xl mx-auto leading-tight">
+              Seu site e seu ERP, prontos em minutos
+            </h2>
+            <p className="text-white/75 text-base max-w-lg mx-auto mb-8">
+              Descreva sua empresa agora e deixe nossa I.A cuidar do resto.
+            </p>
+            <motion.button
+              whileTap={{ scale: 0.96 }}
+              onClick={() => navigate(loggedIn ? "/builder" : "/register")}
+              className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white hover:brightness-95 text-primary font-semibold text-base transition-all shadow-xl shadow-black/20 hover:-translate-y-0.5"
+            >
+              Criar meu site agora
+              <ArrowRight size={17} className="group-hover:translate-x-1 transition-transform" />
+            </motion.button>
+          </div>
+        </motion.div>
       </section>
     </div>
   );

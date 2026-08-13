@@ -187,3 +187,15 @@
     line-height: 1.5;
   }
 }
+
+@layer utilities {
+  .surface-card {
+    @apply bg-card rounded-2xl border border-border dark:border-white/10 shadow-sm dark:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.7)];
+  }
+  .surface-glow-primary {
+    box-shadow: 0 0 0 1px rgba(118, 134, 224, 0.25), 0 20px 40px -20px rgba(118, 134, 224, 0.35);
+  }
+  .surface-glow-accent {
+    box-shadow: 0 0 0 1px rgba(126, 215, 255, 0.25), 0 20px 40px -20px rgba(126, 215, 255, 0.35);
+  }
+}

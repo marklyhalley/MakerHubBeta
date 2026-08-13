@@ -22,6 +22,10 @@ type AppContextValue = {
   logout: () => void;
   prompt: string;
   setPrompt: (s: string) => void;
+  businessType: string | null;
+  setBusinessType: (s: string | null) => void;
+  modules: string[];
+  toggleModule: (id: string) => void;
 };
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -30,6 +34,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
   const [loggedIn, setLoggedIn] = useState(false);
   const [prompt, setPrompt] = useState("");
+  const [businessType, setBusinessType] = useState<string | null>(null);
+  const [modules, setModules] = useState<string[]>([]);
+
+  const toggleModule = (id: string) =>
+    setModules((m) => (m.includes(id) ? m.filter((x) => x !== id) : [...m, id]));
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -50,6 +59,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     logout: () => setLoggedIn(false),
     prompt,
     setPrompt,
+    businessType,
+    setBusinessType,
+    modules,
+    toggleModule,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
