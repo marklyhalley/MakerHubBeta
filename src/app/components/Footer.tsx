@@ -1,7 +1,19 @@
 import { Mail } from "lucide-react";
 import { Logo, Stars } from "./common";
 
-export function Footer() {
+export function Footer({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    return (
+      <footer className="relative bg-card border-t border-border dark:border-white/10 px-8 py-6">
+        <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-3 items-center justify-between">
+          <Logo size="sm" />
+          <span className="text-xs text-muted-foreground">© 2025 MakerHub. Todos os direitos reservados.</span>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer className="relative bg-card border-t border-border dark:border-white/10 px-8 py-10">
       <div className="hidden dark:block pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />

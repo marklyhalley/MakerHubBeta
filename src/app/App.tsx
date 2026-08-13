@@ -13,7 +13,11 @@ import { PlansPage } from "./pages/PlansPage";
 
 function AnimatedRoutes() {
   const location = useLocation();
-  const showFooter = location.pathname === "/";
+  const footerVariant = location.pathname === "/"
+    ? "full"
+    : location.pathname === "/plans" || location.pathname === "/result"
+      ? "compact"
+      : "none";
 
   return (
     <AnimatePresence mode="wait">
@@ -28,7 +32,8 @@ function AnimatedRoutes() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/plans" element={<PlansPage />} />
         </Routes>
-        {showFooter && <Footer />}
+        {footerVariant === "full" && <Footer />}
+        {footerVariant === "compact" && <Footer compact />}
       </motion.div>
     </AnimatePresence>
   );

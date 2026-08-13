@@ -13,7 +13,6 @@ export function PlansContent() {
   ];
   return (
     <div className="bg-card rounded-2xl border border-border dark:border-white/10 shadow-sm dark:shadow-[0_20px_50px_-30px_rgba(0,0,0,0.7)] p-8">
-      <h3 className="font-['Poppins',sans-serif] font-bold text-3xl text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-[#a9b6ff] dark:to-accent text-center mb-8">Planos</h3>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {plans.map((p, i) => (
           <button

@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { motion } from "motion/react";
 import { Plus, Search, LayoutGrid, List as ListIcon, FolderOpen } from "lucide-react";
 import { useNavigate } from "react-router";
-import { pageVariants, PageGlow, ProjectThumbnail, ERP_MODULES } from "../components/common";
+import { pageVariants, PageGlow, PageHeader, ProjectThumbnail, ERP_MODULES } from "../components/common";
 import { LightNav } from "../components/LightNav";
 
 const PROJECTS = [
@@ -59,16 +59,18 @@ export function ProjectsPage() {
       <LightNav />
       <div className="max-w-6xl mx-auto px-8 py-12">
         <motion.div variants={pageVariants} initial="initial" animate="animate">
-          <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
-            <h1 className="font-['Poppins',sans-serif] font-bold text-5xl text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-[#a9b6ff] dark:to-accent">Meus projetos</h1>
-            <button
-              onClick={() => navigate("/builder")}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-accent hover:brightness-95 text-[#1f2937] text-sm font-semibold transition-all shadow-sm shadow-accent/30 dark:shadow-[0_0_24px_-4px_rgba(126,215,255,0.6)]"
-            >
-              <Plus size={16} />
-              Criar novo
-            </button>
-          </div>
+          <PageHeader
+            title="Meus projetos"
+            action={
+              <button
+                onClick={() => navigate("/builder")}
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-accent hover:brightness-95 text-[#1f2937] text-sm font-semibold transition-all shadow-sm shadow-accent/30 dark:shadow-[0_0_24px_-4px_rgba(126,215,255,0.6)]"
+              >
+                <Plus size={16} />
+                Criar novo
+              </button>
+            }
+          />
 
           {/* Toolbar */}
           <div className="flex items-center gap-3 mb-8 flex-wrap">

@@ -39,11 +39,10 @@ export function HomePage() {
   }, []);
 
   return (
-    <div className="relative flex flex-col overflow-hidden">
+    <div className="relative flex flex-col bg-[#0b0e1a]">
+      <DarkNav />
       <section className="relative min-h-screen flex flex-col overflow-hidden">
         <MeshBackdrop />
-
-        <DarkNav />
 
         {/* Hero */}
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 py-20">
@@ -330,7 +329,7 @@ export function HomePage() {
       </section>
 
       {/* CTA final */}
-      <section className="relative px-6 pb-24">
+      <section className="relative bg-background px-6 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

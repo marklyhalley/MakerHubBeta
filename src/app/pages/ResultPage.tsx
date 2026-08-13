@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { Bookmark, Check, ChevronLeft, LayoutGrid, Download, Eye, Clock, Globe, LayoutDashboard, Users } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useApp } from "../context/AppContext";
-import { pageVariants, PageGlow, BrowserMockup, ErpDashboardMock, SiteMock, ERP_MODULES } from "../components/common";
+import { pageVariants, PageGlow, PageHeader, BrowserMockup, ErpDashboardMock, SiteMock, ERP_MODULES } from "../components/common";
 import { LightNav } from "../components/LightNav";
 
 export function ResultPage() {
@@ -30,21 +30,19 @@ export function ResultPage() {
 
       <div className="flex-1 flex flex-col items-center px-6 py-12 max-w-6xl mx-auto w-full">
         <motion.div variants={pageVariants} initial="initial" animate="animate" className="w-full">
-          <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
-            <div>
-              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">Resultado gerado por I.A</p>
-              <h1 className="font-['Poppins',sans-serif] font-bold text-3xl sm:text-4xl text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-[#a9b6ff] dark:to-accent max-w-2xl">
-                {prompt.trim() || "Seu projeto está pronto"}
-              </h1>
-            </div>
-            <button
-              onClick={() => { setSaved(true); setTimeout(() => setSaved(false), 2000); }}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-medium transition-all ${saved ? "bg-success/10 border-success text-success dark:shadow-[0_0_16px_-4px_rgba(61,220,151,0.6)]" : "border-border text-muted-foreground hover:bg-muted dark:hover:border-white/20"}`}
-            >
-              {saved ? <Check size={15} /> : <Bookmark size={15} />}
-              {saved ? "Salvo!" : "Salvar"}
-            </button>
-          </div>
+          <PageHeader
+            eyebrow="Resultado gerado por I.A"
+            title={prompt.trim() || "Seu projeto está pronto"}
+            action={
+              <button
+                onClick={() => { setSaved(true); setTimeout(() => setSaved(false), 2000); }}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-medium transition-all ${saved ? "bg-success/10 border-success text-success dark:shadow-[0_0_16px_-4px_rgba(61,220,151,0.6)]" : "border-border text-muted-foreground hover:bg-muted dark:hover:border-white/20"}`}
+              >
+                {saved ? <Check size={15} /> : <Bookmark size={15} />}
+                {saved ? "Salvo!" : "Salvar"}
+              </button>
+            }
+          />
 
           <div className="flex items-center gap-2 flex-wrap mb-4">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-success/10 text-success text-xs font-semibold dark:border dark:border-success/25">

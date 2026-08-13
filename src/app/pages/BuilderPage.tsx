@@ -45,7 +45,7 @@ export function BuilderPage() {
   }, [loading, step, navigate]);
 
   return (
-    <div className="relative min-h-screen flex flex-col overflow-hidden">
+    <div className="relative min-h-screen flex flex-col">
       <MeshBackdrop />
 
       <DarkNav />

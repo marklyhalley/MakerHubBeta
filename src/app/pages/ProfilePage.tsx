@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { Lock, User, Globe, Pencil, Coins, Moon, Sun, LogOut, Plus } from "lucide-react";
 import { useNavigate } from "react-router";
 import { useApp } from "../context/AppContext";
-import { pageVariants, PageGlow } from "../components/common";
+import { pageVariants, PageGlow, PageHeader } from "../components/common";
 import { LightNav } from "../components/LightNav";
 import { PlansContent } from "../components/PlansContent";
 
@@ -25,6 +25,8 @@ export function ProfilePage() {
       <LightNav />
       <div className="max-w-2xl mx-auto px-6 py-12">
         <motion.div variants={pageVariants} initial="initial" animate="animate">
+          <PageHeader eyebrow="Sua conta" title="Perfil" />
+
           {/* Avatar */}
           <div className="flex flex-col items-center mb-10">
             <div className="relative mb-4">

@@ -7,6 +7,36 @@ import type { Theme } from "../context/AppContext";
 import type { LucideIcon } from "lucide-react";
 
 // ─────────────────────────────────────────────
+// BUTTON SHAPE CONVENTION (design system rule)
+// - Marketing / conversion CTAs (Home, CTA banners, DarkNav) → rounded-full
+// - In-app product actions (Builder, Result, Projects, Profile, Plans) → rounded-xl
+// - Nav pills, filter chips, segmented controls and badges are a distinct
+//   selection-pattern and are intentionally exempt from this rule.
+// ─────────────────────────────────────────────
+
+// ─────────────────────────────────────────────
+// SHARED NAVIGATION (single source of truth for DarkNav & LightNav)
+// ─────────────────────────────────────────────
+export type NavItem = { label: string; to: string; authOnly?: boolean };
+
+export const NAV_ITEMS: NavItem[] = [
+  { label: "Criar site", to: "/builder" },
+  { label: "Meus projetos", to: "/projects", authOnly: true },
+  { label: "Planos", to: "/plans" },
+];
+
+export function useScrolled(threshold = 12) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > threshold);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [threshold]);
+  return scrolled;
+}
+
+// ─────────────────────────────────────────────
 // THEME TOGGLE
 // ─────────────────────────────────────────────
 export function ThemeToggle({
@@ -115,6 +145,27 @@ export function Logo({ light = false, size = "md" }: { light?: boolean; size?: "
       <span className={light ? "text-accent" : "text-primary"}>MAKER</span>
       <span className={light ? "text-white" : "text-foreground"}>Hub</span>
     </span>
+  );
+}
+
+// ─────────────────────────────────────────────
+// PAGE HEADER (standard eyebrow + title + action scale for all app pages)
+// ─────────────────────────────────────────────
+export function PageHeader({
+  eyebrow, title, action,
+}: { eyebrow?: string; title: string; action?: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
+      <div>
+        {eyebrow && (
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">{eyebrow}</p>
+        )}
+        <h1 className="font-['Poppins',sans-serif] font-bold text-3xl sm:text-4xl text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-[#a9b6ff] dark:to-accent">
+          {title}
+        </h1>
+      </div>
+      {action && <div className="flex items-center gap-3">{action}</div>}
+    </div>
   );
 }
 
